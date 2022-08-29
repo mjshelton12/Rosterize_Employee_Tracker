@@ -14,14 +14,22 @@ class Methods {
   findRoles() {
     // WHEN I choose to view all roles
     // THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
-    return this.connection.promise().query('SELECT role.title, role.id, department.name, role.salary FROM role LEFT JOIN department ON role.department_id = department.id;');
+    return this.connection.promise().query('SELECT role.title, role.id, department.department, role.salary FROM role LEFT JOIN department ON role.department_id = department.id;');
   }
 
   findEmployees() {
-    //   WHEN I choose to view all employees
+    // WHEN I choose to view all employees
     // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-    return this.connection.promise().query();
+    return this.connection.promise().query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.department, role.salary FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id');
   }
 }
+
+// findEmployees() {
+//     // WHEN I choose to view all employees
+//     // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+//     return this.connection.promise().query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salaries, manager.first_name, manager.last_name FROM employee (((LEFT JOIN role ON employee.role_id = role.id) LEFT JOIN department ON role.department_id = department.id) LEFT JOIN employee AS manager ON employee.manager_id = employee.id');
+//   }
+// }
+
 
 module.exports = new Methods(connection);
