@@ -20,16 +20,9 @@ class Methods {
   findEmployees() {
     // WHEN I choose to view all employees
     // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-    return this.connection.promise().query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.department, role.salary FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id');
+    return this.connection.promise().query(
+        'SELECT employee.id, concat(employee.last_name, ", ", employee.first_name) as employee, role.title, department.department, role.salary, concat(manager.last_name, ", ", manager.first_name) as manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee as manager on employee.manager_id = manager.id');
   }
 }
-
-// findEmployees() {
-//     // WHEN I choose to view all employees
-//     // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-//     return this.connection.promise().query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salaries, manager.first_name, manager.last_name FROM employee (((LEFT JOIN role ON employee.role_id = role.id) LEFT JOIN department ON role.department_id = department.id) LEFT JOIN employee AS manager ON employee.manager_id = employee.id');
-//   }
-// }
-
 
 module.exports = new Methods(connection);
