@@ -46,6 +46,7 @@ function beginProgram() {
         break;
       case "Add a department":
         newDepartment();
+        break;
       default:
         process.exit();
         break;
@@ -81,13 +82,14 @@ function viewAllEmployees() {
 }
 
 function newDepartment() {
-    inquirer.prompt(deptQuestion).then((data) => {
-        addDepartment(data)
-    });
-  }
-
-function addDepartment(data) {
-    console.log(data.newDept)
+  inquirer
+    .prompt(deptQuestion)
+    .then((data) => {
+      tables.addDepartment(data).then(() => {
+        console.log("New department succesfully added");
+      });
+    })
+    .then(() => beginProgram());
 }
 
 beginProgram();
