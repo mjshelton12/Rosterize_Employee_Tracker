@@ -6,14 +6,10 @@ class Methods {
   }
 
   findDepartments() {
-    // WHEN I choose to view all departments
-    // THEN I am presented with a formatted table showing department names and department ids
     return this.connection.promise().query("SELECT * FROM department;");
   }
 
   findRoles() {
-    // WHEN I choose to view all roles
-    // THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
     return this.connection
       .promise()
       .query(
@@ -22,8 +18,6 @@ class Methods {
   }
 
   findEmployees() {
-    // WHEN I choose to view all employees
-    // THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
     return this.connection
       .promise()
       .query(
@@ -37,7 +31,12 @@ class Methods {
       .query(`INSERT INTO department (department) VALUE ("${data.newDept}");`);
   }
 
-  
+  addRole(data) {
+    return this.connection
+      .promise()
+      .query(`INSERT INTO role (title, salary, department_id) VALUE ("${data.roleName}", ${data.roleSalary}, ${data.roleDept});`);
+  }
+
 }
 
 module.exports = new Methods(connection);

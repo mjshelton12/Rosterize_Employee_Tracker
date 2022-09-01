@@ -33,8 +33,6 @@ const deptQuestion = [
 ];
 
 const roleQuestions = [
-  // WHEN I choose to add a role
-  // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
   {
     type: "input",
     name: "roleName",
@@ -44,11 +42,23 @@ const roleQuestions = [
     type: "input",
     name: "roleSalary",
     message: "What is the salary of the new role?",
+    validate: function(value){
+        if(isNaN(value) === false){
+            return true;
+        }
+        return false;
+    }
   },
   {
     type: "input",
     name: "roleDept",
-    message: "What department does the new role belong in?",
+    message: "What is the ID of the department the new role belongs in?",
+    validate: function(value){
+        if(isNaN(value) === false){
+            return true;
+        }
+        return false;
+    }
   },
 ];
 
@@ -66,6 +76,9 @@ function beginProgram() {
         break;
       case "Add a department":
         newDepartment();
+        break;
+      case "Add a role":
+        newRole();
         break;
       default:
         process.exit();
@@ -105,11 +118,22 @@ function newDepartment() {
   inquirer
     .prompt(deptQuestion)
     .then((data) => {
-      tables.addDepartment(data).then(
-        console.log(data.newDept + " added to department list!")
-      );
+      tables
+        .addDepartment(data)
+        .then(console.log(data.newDept + " added to department list!"));
     })
     .then(() => beginProgram());
 }
+
+function newRole() {
+    inquirer
+      .prompt(roleQuestions)
+      .then((data) => {
+        tables
+          .addRole(data)
+          .then(console.log(data.roleName + " added to role list!"));
+      })
+      .then(() => beginProgram());
+  }
 
 beginProgram();
