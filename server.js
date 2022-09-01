@@ -196,27 +196,27 @@ function newEmployee() {
 function updateEmployee() {
     tables
     .getEmployeeList()
-    .then((data) => {
+    .then(([data]) => {
     inquirer
       .prompt([{
         name: "employeeToUpdate",
         type: "list",
+        message: "Choose employee to update",
         choices: function(){
             let employees = [];
             for(i=0; i<data.length; i++){
                 employees.push(data[i].last_name)
-                console.log(data[i])
             }
+            console.log("employees array: " + employees)
             return employees
         },
-        message: "Choose employee to update"
     }])
       .then((data) => {
         tables
-          .updateEmployee(data)
+          .updateEmployeeRole(data)
           .then(
             console.log(
-                data
+                "Later"
             //   data.emp_first_name +
             //     " " +
             //     data.emp_last_name +
@@ -225,6 +225,7 @@ function updateEmployee() {
           );
       })})
       beginProgram();
+
   }
 
 beginProgram();

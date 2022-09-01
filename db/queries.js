@@ -43,11 +43,19 @@ class Methods {
       .query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE ("${data.emp_first_name}", "${data.emp_last_name}", ${data.emp_role}, ${data.emp_manage});`);
   }
 
-  getEmployeeList(){
-    return this.connection.promise().query("SELECT last_name FROM employee;")
+//   getEmployeeList(){
+//     return this.connection.promise().query("SELECT last_name FROM employee;")
+//   }
+
+getEmployeeList() {
+    const employeeResults = this.connection
+      .promise()
+      .query("SELECT last_name FROM employee;");
+    console.log(employeeResults);
+    return employeeResults;
   }
 
-  updateEmployee(){
+  updateEmployeeRole(){
     return "Temp data"
   }
 
