@@ -32,6 +32,26 @@ const deptQuestion = [
   },
 ];
 
+const roleQuestions = [
+  // WHEN I choose to add a role
+  // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
+  {
+    type: "input",
+    name: "roleName",
+    message: "What is the name of the new role?",
+  },
+  {
+    type: "input",
+    name: "roleSalary",
+    message: "What is the salary of the new role?",
+  },
+  {
+    type: "input",
+    name: "roleDept",
+    message: "What department does the new role belong in?",
+  },
+];
+
 function beginProgram() {
   inquirer.prompt(mainMenu).then((data) => {
     switch (data.mainMenu) {
@@ -85,9 +105,9 @@ function newDepartment() {
   inquirer
     .prompt(deptQuestion)
     .then((data) => {
-      tables.addDepartment(data).then(() => {
-        console.log("New department succesfully added");
-      });
+      tables.addDepartment(data).then(
+        console.log(data.newDept + " added to department list!")
+      );
     })
     .then(() => beginProgram());
 }
