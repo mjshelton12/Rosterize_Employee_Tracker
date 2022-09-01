@@ -37,6 +37,12 @@ class Methods {
       .query(`INSERT INTO role (title, salary, department_id) VALUE ("${data.roleName}", ${data.roleSalary}, ${data.roleDept});`);
   }
 
+  addEmployee(data) {
+    return this.connection
+      .promise()
+      .query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE ("${data.emp_first_name}", "${data.emp_last_name}", ${data.emp_role}, ${data.emp_manage});`);
+  }
+
 }
 
 module.exports = new Methods(connection);

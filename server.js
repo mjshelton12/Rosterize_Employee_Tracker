@@ -4,9 +4,6 @@ require("console.table");
 const tables = require("./db/queries");
 
 const mainMenu = [
-  // WHEN I start the application
-  // THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-
   {
     type: "list",
     name: "mainMenu",
@@ -42,25 +39,60 @@ const roleQuestions = [
     type: "input",
     name: "roleSalary",
     message: "What is the salary of the new role?",
-    validate: function(value){
-        if(isNaN(value) === false){
-            return true;
-        }
-        return false;
-    }
+    validate: function (value) {
+      if (isNaN(value) === false) {
+        return true;
+      }
+      return false;
+    },
   },
   {
     type: "input",
     name: "roleDept",
     message: "What is the ID of the department the new role belongs in?",
-    validate: function(value){
-        if(isNaN(value) === false){
-            return true;
-        }
-        return false;
-    }
+    validate: function (value) {
+      if (isNaN(value) === false) {
+        return true;
+      }
+      return false;
+    },
   },
 ];
+
+const employeeQuestions = [
+    {
+      type: "input",
+      name: "emp_first_name",
+      message: "What is the new employee's first name?",
+    },
+    {
+        type: "input",
+        name: "emp_last_name",
+        message: "What is the new employee's last name?",
+      },
+    {
+      type: "input",
+      name: "emp_role",
+      message: "What is the ID of the new employee's role?",
+      validate: function (value) {
+        if (isNaN(value) === false) {
+          return true;
+        }
+        return false;
+      },
+    },
+    {
+      type: "input",
+      name: "emp_manage",
+      message: "What is the employee ID of the new employee's manager?",
+      validate: function (value) {
+        if (isNaN(value) === false) {
+          return true;
+        }
+        return false;
+      },
+    },
+  ];
 
 function beginProgram() {
   inquirer.prompt(mainMenu).then((data) => {
@@ -79,6 +111,9 @@ function beginProgram() {
         break;
       case "Add a role":
         newRole();
+        break;
+      case "Add an employee":
+        newEmployee();
         break;
       default:
         process.exit();
@@ -126,12 +161,23 @@ function newDepartment() {
 }
 
 function newRole() {
+  inquirer
+    .prompt(roleQuestions)
+    .then((data) => {
+      tables
+        .addRole(data)
+        .then(console.log(data.roleName + " added to role list!"));
+    })
+    .then(() => beginProgram());
+}
+
+function newEmployee() {
     inquirer
-      .prompt(roleQuestions)
+      .prompt(employeeQuestions)
       .then((data) => {
         tables
-          .addRole(data)
-          .then(console.log(data.roleName + " added to role list!"));
+          .addEmployee(data)
+          .then(console.log(data.emp_first_name + " " + data.emp_last_name + " added to employee list!"));
       })
       .then(() => beginProgram());
   }
