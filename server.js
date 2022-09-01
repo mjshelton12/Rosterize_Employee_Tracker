@@ -24,6 +24,14 @@ const mainMenu = [
   },
 ];
 
+const deptQuestion = [
+  {
+    type: "input",
+    name: "newDept",
+    message: "What is the name of the new department?",
+  },
+];
+
 function beginProgram() {
   inquirer.prompt(mainMenu).then((data) => {
     switch (data.mainMenu) {
@@ -36,6 +44,8 @@ function beginProgram() {
       case "View all employees":
         viewAllEmployees();
         break;
+      case "Add a department":
+        newDepartment();
       default:
         process.exit();
         break;
@@ -62,12 +72,22 @@ function viewAllRoles() {
 }
 
 function viewAllEmployees() {
-    tables
-        .findEmployees()
-        .then(([data]) => {
-            console.table(data)
-        })
-        .then(() => beginProgram())
+  tables
+    .findEmployees()
+    .then(([data]) => {
+      console.table(data);
+    })
+    .then(() => beginProgram());
+}
+
+function newDepartment() {
+    inquirer.prompt(deptQuestion).then((data) => {
+        addDepartment(data)
+    });
+  }
+
+function addDepartment(data) {
+    console.log(data.newDept)
 }
 
 beginProgram();

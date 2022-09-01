@@ -25,4 +25,8 @@ class Methods {
   }
 }
 
+// function addDepartment(data) {
+//     console.log("Hi!")
+// }
+
 module.exports = new Methods(connection);
