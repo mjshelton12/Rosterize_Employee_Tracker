@@ -194,38 +194,64 @@ function newEmployee() {
 }
 
 function updateEmployee() {
-    tables
-    .getEmployeeList()
-    .then(([data]) => {
+  tables.getEmployeeList().then(([data]) => {
     inquirer
-      .prompt([{
-        name: "employeeToUpdate",
-        type: "list",
-        message: "Choose employee to update",
-        choices: function(){
+      .prompt([
+        {
+          name: "employeeToUpdate",
+          type: "list",
+          message: "Choose employee to update",
+          choices: function () {
             let employees = [];
-            for(i=0; i<data.length; i++){
-                employees.push(data[i].last_name)
+            for (i = 0; i < data.length; i++) {
+              employees.push(data[i].last_name);
+            //   const lastName = [data[0].last_name]
             }
-            console.log("employees array: " + employees)
-            return employees
+            console.log("employees array: ", employees);
+            return employees;
+          },
         },
-    }])
+      ])
       .then((data) => {
-        tables
-          .updateEmployeeRole(data)
-          .then(
-            console.log(
-                "Later"
-            //   data.emp_first_name +
-            //     " " +
-            //     data.emp_last_name +
-            //     " updated in employee list!"
-            )
-          );
-      })})
-      beginProgram();
+        // const name = JSON.stringify(data.employeeToUpdate);
+        // tables.employeeToUpdate(name).then(([data]) => {
+        //     const updateId = 
+        console.log("220 data", data)
+        const lastName = JSON.stringify(data.employeeToUpdate)
+        console.log("221", lastName)
+          newEmployeeInfo(lastName);
+        // });
+      });
+  });
+}
 
-  }
+function newEmployeeInfo(toUpdate) {
+    console.log("224 toUpdate", toUpdate)
+  const roleUpdate = toUpdate;
+  inquirer
+    .prompt([
+      {
+        name: "newRole",
+        type: "input",
+        message: "Choose new role ID",
+      },
+      {
+        name: "newMang",
+        type: "input",
+        message: "Choose new manager ID",
+      },
+    ])
+    .then((data) => {
+        const newInfo = JSON.stringify(data)
+        const toUpdateEmp = roleUpdate
+        console.log("247", typeof roleUpdate)
+        tables
+            .updatedEmployee(toUpdateEmp, newInfo)
+            .then((data) => {
+                console.log(data)
+            })
+            .then(() => beginProgram());
+    })
+}
 
 beginProgram();

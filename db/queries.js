@@ -34,20 +34,20 @@ class Methods {
   addRole(data) {
     return this.connection
       .promise()
-      .query(`INSERT INTO role (title, salary, department_id) VALUE ("${data.roleName}", ${data.roleSalary}, ${data.roleDept});`);
+      .query(
+        `INSERT INTO role (title, salary, department_id) VALUE ("${data.roleName}", ${data.roleSalary}, ${data.roleDept});`
+      );
   }
 
   addEmployee(data) {
     return this.connection
       .promise()
-      .query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE ("${data.emp_first_name}", "${data.emp_last_name}", ${data.emp_role}, ${data.emp_manage});`);
+      .query(
+        `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE ("${data.emp_first_name}", "${data.emp_last_name}", ${data.emp_role}, ${data.emp_manage});`
+      );
   }
 
-//   getEmployeeList(){
-//     return this.connection.promise().query("SELECT last_name FROM employee;")
-//   }
-
-getEmployeeList() {
+  getEmployeeList() {
     const employeeResults = this.connection
       .promise()
       .query("SELECT last_name FROM employee;");
@@ -55,9 +55,25 @@ getEmployeeList() {
     return employeeResults;
   }
 
-  updateEmployeeRole(){
-    return "Temp data"
-  }
+//   employeeToUpdate(data) {
+//     return this.connection
+//       .promise()
+//       .query(
+//         `SELECT * FROM employee WHERE last_name = ${data};`
+//       );
+//   }
+
+  updatedEmployee(roleUpdate, data){
+    console.log("roleUpdate", roleUpdate)
+    const newInfo = JSON.parse(data)
+    const toUpdateEmp = JSON.parse(roleUpdate)
+    console.log("69", toUpdateEmp)
+    return this.connection
+    .promise()
+    .query(
+      `UPDATE employee SET role_id = ${newInfo.newRole}, manager_id = ${newInfo.newMang} WHERE last_name = ${roleUpdate};`
+    );
+    }
 
 }
 
