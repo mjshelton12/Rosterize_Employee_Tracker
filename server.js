@@ -205,9 +205,8 @@ function updateEmployee() {
             let employees = [];
             for (i = 0; i < data.length; i++) {
               employees.push(data[i].last_name);
-            //   const lastName = [data[0].last_name]
+
             }
-            console.log("employees array: ", employees);
             return employees;
           },
         },
@@ -216,9 +215,7 @@ function updateEmployee() {
         // const name = JSON.stringify(data.employeeToUpdate);
         // tables.employeeToUpdate(name).then(([data]) => {
         //     const updateId = 
-        console.log("220 data", data)
         const lastName = JSON.stringify(data.employeeToUpdate)
-        console.log("221", lastName)
           newEmployeeInfo(lastName);
         // });
       });
@@ -226,7 +223,6 @@ function updateEmployee() {
 }
 
 function newEmployeeInfo(toUpdate) {
-    console.log("224 toUpdate", toUpdate)
   const roleUpdate = toUpdate;
   inquirer
     .prompt([
@@ -243,14 +239,12 @@ function newEmployeeInfo(toUpdate) {
     ])
     .then((data) => {
         const newInfo = JSON.stringify(data)
-        const toUpdateEmp = roleUpdate
-        console.log("247", typeof roleUpdate)
+        const  toUpdateEmp = JSON.parse(roleUpdate)
         tables
-            .updatedEmployee(toUpdateEmp, newInfo)
-            .then((data) => {
-                console.log(data)
-            })
-            .then(() => beginProgram());
+            .updatedEmployee(roleUpdate, newInfo)
+            .then(() => {
+                console.log(toUpdateEmp, "has been updated!")
+                beginProgram()});
     })
 }
 

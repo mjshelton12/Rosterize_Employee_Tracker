@@ -64,14 +64,12 @@ class Methods {
 //   }
 
   updatedEmployee(roleUpdate, data){
-    console.log("roleUpdate", roleUpdate)
     const newInfo = JSON.parse(data)
-    const toUpdateEmp = JSON.parse(roleUpdate)
-    console.log("69", toUpdateEmp)
+    const toUpdateEmp = JSON.parse([roleUpdate])
     return this.connection
     .promise()
     .query(
-      `UPDATE employee SET role_id = ${newInfo.newRole}, manager_id = ${newInfo.newMang} WHERE last_name = ${roleUpdate};`
+      `UPDATE employee SET role_id = ${newInfo.newRole}, manager_id = ${newInfo.newMang} WHERE last_name = '${toUpdateEmp}';`
     );
     }
 
