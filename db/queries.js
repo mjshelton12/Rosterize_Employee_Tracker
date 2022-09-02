@@ -55,14 +55,6 @@ class Methods {
     return employeeResults;
   }
 
-//   employeeToUpdate(data) {
-//     return this.connection
-//       .promise()
-//       .query(
-//         `SELECT * FROM employee WHERE last_name = ${data};`
-//       );
-//   }
-
   updatedEmployee(roleUpdate, data){
     const newInfo = JSON.parse(data)
     const toUpdateEmp = JSON.parse([roleUpdate])

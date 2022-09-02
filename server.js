@@ -212,12 +212,8 @@ function updateEmployee() {
         },
       ])
       .then((data) => {
-        // const name = JSON.stringify(data.employeeToUpdate);
-        // tables.employeeToUpdate(name).then(([data]) => {
-        //     const updateId = 
         const lastName = JSON.stringify(data.employeeToUpdate)
           newEmployeeInfo(lastName);
-        // });
       });
   });
 }
