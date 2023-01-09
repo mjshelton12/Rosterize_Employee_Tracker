@@ -16,7 +16,7 @@
 ![Rosterized Application](https://i.imgur.com/Z2uOSzH.jpg)
 
 ## Video
- [![Watch the video](https://i.imgur.com/SbdF2oq.jpg)](https://drive.google.com/file/d/1lSCSM07wIkKfqXKe0oGIcq7YzztusFVH/view)
+ [![Watch the video](https://i.imgur.com/SbdF2oq.jpg)](https://drive.google.com/file/d/1ExZbFwiT9v6-POdGpFcjqWGcohxg00pm/view?usp=sharing)
 
 ## Summary
 
